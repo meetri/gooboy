@@ -1,0 +1,35 @@
+function init(self)
+	self.score = 0
+	self.energy = 5
+	self.score_node = gui.get_node("score")
+	self.hearts = {}
+	self.hearts[1]  = gui.get_node("heart1")
+	self.hearts[2]  = gui.get_node("heart2")
+	self.hearts[3]  = gui.get_node("heart3")
+	self.hearts[4]  = gui.get_node("heart4")
+	self.hearts[5]  = gui.get_node("heart5")
+end
+
+local function scale_down(self, node)
+	local s = 1.0
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_OUT, 0.05)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("add_score") then
+		local s = 1.2
+		self.score = self.score + message.amount
+		gui.set_text(self.score_node, tostring(self.score))
+		gui.animate(self.score_node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_OUT, 0.1, 0.0, scale_down)
+	elseif message_id == hash("add_energy") then
+		if self.energy < 5 then
+			self.energy = self.energy + 1
+			gui.set_color(self.hearts[self.energy], vmath.vector4(1.0, 1.0, 1.0, 1.0))
+		end
+	elseif message_id == hash("remove_energy") then
+		if self.energy > 1 then
+			gui.set_color(self.hearts[self.energy], vmath.vector4(0.5, 0.5, 0.5, 0.5))
+			self.energy = self.energy - 1
+		end
+	end
+end

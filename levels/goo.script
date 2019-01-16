@@ -1,0 +1,36 @@
+local score = 1
+local speed = 500
+local gravity = -5
+go.property("direction", 1)
+
+
+function init(self)
+	self.speed = speed * self.direction
+	self.velocity = vmath.vector3(0, 0, 0)
+	self.gravity = vmath.vector3(0, gravity, 0)
+	if self.direction == -1 then
+		sprite.set_hflip("#sprite", true)
+	end
+end
+
+function update(self, dt)
+
+	local p = go.get_position()
+
+	self.velocity.x = self.speed
+	if p.y < -900 then
+		print("delete bullet")
+		go.delete()
+	end
+
+	self.velocity = self.velocity + self.gravity
+	go.set_position(p + self.velocity * dt)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("collision_response") then
+		msg.post("main#gui", "add_score", {amount = score})
+		particlefx.play("#splash")
+		go.delete()
+	end
+end

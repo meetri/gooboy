@@ -1,0 +1,40 @@
+local speed = 600
+local gravity = -20
+go.property("direction", 1)
+
+
+function init(self)
+
+	self.upwards_power = 10
+	self.speed = speed * self.direction
+	self.velocity = vmath.vector3(0, 0, 0)
+	self.gravity = vmath.vector3(0, gravity, 0)
+end
+
+function update(self, dt)
+
+	local p = go.get_position()
+	self.velocity.x = self.speed
+
+	if p.y < -900 then
+		print("delete water bomb")
+		go.delete()
+	end
+
+	self.velocity = self.velocity + self.gravity
+	go.set_position(p + self.velocity * dt)
+end
+
+function on_message(self, message_id, message, sender)
+
+	if message_id == hash("contact_point_response") then
+		if message.other_group == hash("player") then
+			local stats = {other_position=go.get_position(), damage=15}
+			msg.post(message.other_id, hash("take_damage"), stats)
+			particlefx.play("#splash")
+			go.delete()
+		end
+
+	end
+
+end

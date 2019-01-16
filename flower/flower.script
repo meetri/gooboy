@@ -1,0 +1,100 @@
+local gravity = -20
+local jump_power = 700
+go.property("energy", 20)
+go.property("jumpiness", 0.01)
+
+function init(self)
+	-- go.set(".", "euler.z", -10)
+	-- go.animate(".", "euler.z", go.PLAYBACK_LOOP_PINGPONG, 10, go.EASING_INOUTSINE, 5)
+	self.velocity = vmath.vector3(0, 0, 0)
+	self.correction = vmath.vector3()
+	self.on_ground = false
+	self.invincible = false
+end
+
+local function jump(self)
+	-- only allow jump from ground
+	self.velocity.y = jump_power
+end
+
+function update(self, dt)
+	local gravity = vmath.vector3(0, gravity, 0)
+
+	if not self.on_ground then
+		self.velocity = self.velocity + gravity
+	end
+	go.set_position(go.get_position() + self.velocity * dt)
+
+	if self.on_ground and math.random() < self.jumpiness then
+		jump(self)
+	end	
+
+	self.on_ground = false
+	self.correction.x = 0
+	self.correction.y = 0
+	self.correction.z = 0
+end
+
+local function resume_idle(self)
+	sprite.play_flipbook("#sprite", "idle")
+	self.invincible = false
+end
+
+local function die(self)
+	go.delete()
+end
+
+local function handle_geometry_contact(self, normal, distance) 
+	-- project the correction vector onto the contact normal
+	-- (the correction vector is the 0-vector for the first contact point)
+	local proj = vmath.dot(self.correction, normal)
+	-- calculate the compensation we need to make for this contact point
+	local comp = (distance - proj) * normal
+	-- add it to the correction vector
+	self.correction = self.correction + comp
+	-- apply the compensation to the player character
+	go.set_position(go.get_position() + comp)
+	-- check if the normal points enough up to consider the player standing on the ground
+	-- (0.7 is roughly equal to 45 degrees deviation from pure vertical direction)
+	if normal.y > 0.7 then
+		self.on_ground = true
+	end
+	-- project the velocity onto the normal
+	proj = vmath.dot(self.velocity, normal)
+	-- if the projection is negative, it means that some of the velocity points towards the contact point
+	if proj < 0 then
+		-- remove that component in that case
+		self.velocity = self.velocity - proj * normal
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	-- check for the message
+
+	if message_id == hash("contact_point_response") then
+		if message.group == hash("ground") or message.group == hash("platform") then
+			handle_geometry_contact(self, message.normal, message.distance)
+		end
+	end
+
+	if message_id == hash("collision_response") then
+		if message.group ~= hash("ground") and message.group ~= hash("platform") then
+			if not self.invincible then
+				self.energy = self.energy - 5
+				self.invincible = true
+				if self.energy <= 0 then
+					sprite.play_flipbook("#sprite", "shake", die)
+				else
+					sprite.play_flipbook("#sprite", "shake", resume_idle)
+				end
+			end
+		end
+	end
+end
+
+
+function final(self)
+	-- Return input focus when the object is deleted
+	msg.post(".", "release_input_focus")
+	-- msg.post("camera", "release_camera_focus")
+end

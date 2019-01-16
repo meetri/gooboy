@@ -1,0 +1,175 @@
+image: "/charanim/charmap.png"
+tile_width: 128
+tile_height: 128
+tile_margin: 0
+tile_spacing: 0
+collision: "/charanim/charmap.png"
+material_tag: "tile"
+convex_hulls {
+  index: 0
+  count: 15
+  collision_group: ""
+}
+convex_hulls {
+  index: 15
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 29
+  count: 12
+  collision_group: ""
+}
+convex_hulls {
+  index: 41
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 55
+  count: 15
+  collision_group: ""
+}
+convex_hulls {
+  index: 70
+  count: 12
+  collision_group: ""
+}
+convex_hulls {
+  index: 82
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 95
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 109
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 122
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 135
+  count: 15
+  collision_group: ""
+}
+convex_hulls {
+  index: 150
+  count: 15
+  collision_group: ""
+}
+convex_hulls {
+  index: 165
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 178
+  count: 16
+  collision_group: ""
+}
+convex_hulls {
+  index: 194
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 207
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 221
+  count: 16
+  collision_group: ""
+}
+convex_hulls {
+  index: 237
+  count: 16
+  collision_group: ""
+}
+convex_hulls {
+  index: 253
+  count: 15
+  collision_group: ""
+}
+convex_hulls {
+  index: 268
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 282
+  count: 14
+  collision_group: ""
+}
+convex_hulls {
+  index: 296
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 309
+  count: 13
+  collision_group: ""
+}
+convex_hulls {
+  index: 322
+  count: 15
+  collision_group: ""
+}
+collision_groups: "default"
+animations {
+  id: "Gooboy Fire"
+  start_tile: 16
+  end_tile: 24
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 15
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "Gooboy Idle"
+  start_tile: 10
+  end_tile: 10
+  playback: PLAYBACK_NONE
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "Gooboy Jump"
+  start_tile: 1
+  end_tile: 5
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "Gooboy Shoot"
+  start_tile: 6
+  end_tile: 9
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 15
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "Gooboy Walk"
+  start_tile: 10
+  end_tile: 15
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+extrude_borders: 0
+inner_padding: 0

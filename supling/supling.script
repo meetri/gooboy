@@ -1,0 +1,48 @@
+local gravity = -20
+local speed = 100
+local jump_power = 700
+go.property("energy", 20)
+go.property("jumpiness", 0.01)
+
+function init(self)
+	-- go.set(".", "euler.z", -10)
+	-- go.animate(".", "euler.z", go.PLAYBACK_LOOP_PINGPONG, 10, go.EASING_INOUTSINE, 5)
+	self.velocity = vmath.vector3(0, 0, 0)
+	self.direction = 1
+end
+
+function update(self, dt)
+
+	if math.random() < 0.01 then
+		self.direction = self.direction * -1
+	end
+
+	self.velocity.x = speed * self.direction
+
+	go.set_position(go.get_position() + self.velocity * dt)
+end
+
+local function die(self)
+	go.delete()
+end
+
+function on_message(self, message_id, message, sender)
+	-- check for the message
+
+	if message_id == hash("collision_response") then
+		self.energy = self.energy - 5
+		local pos = go.get_position()
+		pos.x = pos.x - 10
+		go.set_position(pos)
+		if self.energy <= 0 then
+			die()
+		end
+	end
+end
+
+
+function final(self)
+	-- Return input focus when the object is deleted
+	msg.post(".", "release_input_focus")
+	-- msg.post("camera", "release_camera_focus")
+end
