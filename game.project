@@ -3,7 +3,7 @@ title = Side scroller tutorial
 dependencies = https://github.com/britzl/defold-orthographic/archive/master.zip
 
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /main/controller.collectionc
 render = /orthographic/render/orthographic.renderc
 
 [input]

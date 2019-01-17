@@ -29,7 +29,7 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("collision_response") then
-		msg.post("main#gui", "add_score", {amount = score})
+		msg.post("controller:/go#main", "add_score", {amount = score})
 		particlefx.play("#splash")
 		go.delete()
 	end

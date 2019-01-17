@@ -8,6 +8,7 @@ function init(self)
 	self.hearts[3]  = gui.get_node("heart3")
 	self.hearts[4]  = gui.get_node("heart4")
 	self.hearts[5]  = gui.get_node("heart5")
+
 end
 
 local function scale_down(self, node)
@@ -30,6 +31,8 @@ function on_message(self, message_id, message, sender)
 		if self.energy > 1 then
 			gui.set_color(self.hearts[self.energy], vmath.vector4(0.5, 0.5, 0.5, 0.5))
 			self.energy = self.energy - 1
+		elseif self.energy == 1 then
+			msg.post("controller:/controller", "show_menu")
 		end
 	end
 end

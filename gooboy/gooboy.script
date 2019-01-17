@@ -112,7 +112,7 @@ function take_hit(self, direction, damage )
 		local pos = go.get_position()
 		pos.x = pos.x + ( direction * damage )
 		go.set_position(pos)
-		msg.post("main#gui", "remove_energy")
+		msg.post("controller:/go#main", "remove_energy")
 		print("took hit")
 		self.invincible = true
 		msg.post("#collisionobject", "disable")

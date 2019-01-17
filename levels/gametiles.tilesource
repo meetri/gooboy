@@ -28,37 +28,37 @@ convex_hulls {
 convex_hulls {
   index: 16
   count: 4
-  collision_group: ""
+  collision_group: "liquid"
 }
 convex_hulls {
   index: 20
   count: 4
-  collision_group: ""
+  collision_group: "liquid"
 }
 convex_hulls {
   index: 24
   count: 4
-  collision_group: ""
+  collision_group: "liquid"
 }
 convex_hulls {
   index: 28
   count: 4
-  collision_group: ""
+  collision_group: "platform"
 }
 convex_hulls {
   index: 32
   count: 4
-  collision_group: ""
+  collision_group: "liquid"
 }
 convex_hulls {
   index: 36
   count: 4
-  collision_group: ""
+  collision_group: "liquid"
 }
 convex_hulls {
   index: 40
   count: 4
-  collision_group: ""
+  collision_group: "liquid"
 }
 convex_hulls {
   index: 44
@@ -68,27 +68,27 @@ convex_hulls {
 convex_hulls {
   index: 48
   count: 4
-  collision_group: ""
+  collision_group: "ground"
 }
 convex_hulls {
   index: 52
   count: 4
-  collision_group: ""
+  collision_group: "ground"
 }
 convex_hulls {
   index: 56
   count: 4
-  collision_group: ""
+  collision_group: "ground"
 }
 convex_hulls {
   index: 60
   count: 4
-  collision_group: ""
+  collision_group: "platform"
 }
 convex_hulls {
   index: 64
   count: 4
-  collision_group: ""
+  collision_group: "ground"
 }
 convex_hulls {
   index: 68
@@ -546,6 +546,7 @@ convex_hulls {
   collision_group: ""
 }
 collision_groups: "ground"
+collision_groups: "liquid"
 collision_groups: "platform"
 animations {
   id: "anim"

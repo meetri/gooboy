@@ -22,6 +22,10 @@ key_trigger {
   input: KEY_LSHIFT
   action: "run"
 }
+mouse_trigger {
+  input: MOUSE_BUTTON_LEFT
+  action: "touch"
+}
 gamepad_trigger {
   input: GAMEPAD_LPAD_UP
   action: "up"
